@@ -19,14 +19,14 @@ namespace BowlingGame
 
         public int score()
         {
-            int score = 0;
+            var score = 0;
             var frameIndex = 0;
             for (int frame = 0; frame < 10; frame++)
             {
-                if (_rolls[frameIndex] == 10)
+                if (isStrike(frameIndex))
                 {
-                    score += 10 + _rolls[frameIndex + 1] + _rolls[frameIndex + 2];
-                    frameIndex ++;
+                    score += 10 + strikeBonus(frameIndex);
+                    frameIndex++;
                 }
                 else if (isSpare(frameIndex))
                 {
@@ -47,14 +47,23 @@ namespace BowlingGame
             return _rolls[frameIndex] + _rolls[frameIndex + 1];
         }
 
+        private bool isSpare(int frameIndex)
+        {
+            return _rolls[frameIndex] + _rolls[frameIndex + 1] == 10;
+        }
         private int spareBonus(int frameIndex)
         {
             return _rolls[frameIndex + 2];
         }
 
-        private bool isSpare(int frameIndex)
+        private bool isStrike(int frameIndex)
         {
-            return _rolls[frameIndex] + _rolls[frameIndex + 1] == 10;
+            return _rolls[frameIndex] == 10;
+        }
+
+        private int strikeBonus(int frameIndex)
+        {
+            return _rolls[frameIndex + 1] + _rolls[frameIndex + 2];
         }
     }
 }
