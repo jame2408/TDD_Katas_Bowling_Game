@@ -20,21 +20,36 @@ namespace BowlingGame
         public int score()
         {
             int score = 0;
-            var i = 0;
+            var frameIndex = 0;
             for (int frame = 0; frame < 10; frame++)
             {
-                if (_rolls[frame] + _rolls[frame + 1] == 10)
+                if (isSpare(frameIndex))
                 {
-                    score += 10 + _rolls[i + 2];
-                    i += 2;
+                    score += 10 + spareBonus(frameIndex);
+                    frameIndex += 2;
                 }
                 else
                 {
-                    score += _rolls[i] + _rolls[i + 1];
-                    i += 2;
+                    score += sumOfBallsInFrame(frameIndex);
+                    frameIndex += 2;
                 }
             }
             return score;
+        }
+
+        private int sumOfBallsInFrame(int frameIndex)
+        {
+            return _rolls[frameIndex] + _rolls[frameIndex + 1];
+        }
+
+        private int spareBonus(int frameIndex)
+        {
+            return _rolls[frameIndex + 2];
+        }
+
+        private bool isSpare(int frameIndex)
+        {
+            return _rolls[frameIndex] + _rolls[frameIndex + 1] == 10;
         }
     }
 }
