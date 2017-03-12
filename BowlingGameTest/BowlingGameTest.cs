@@ -40,5 +40,16 @@ namespace BowlingGameTest
             game.roll(5);
             game.roll(5);
         }
+
+        [TestMethod]
+        public void testOneStrike()
+        {
+            game.roll(10); //strike
+            game.roll(3);
+            game.roll(4);
+            rollMany(16, 0);
+
+            Assert.AreEqual(24, game.score());
+        }
     }
 }
