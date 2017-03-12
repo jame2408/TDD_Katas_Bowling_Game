@@ -56,5 +56,29 @@ namespace BowlingGameTest
         {
             game.roll(10);
         }
+
+        [TestMethod]
+        public void testAnyGame()
+        {
+            game.roll(6);
+            game.roll(2);
+            game.roll(8);
+            game.roll(0);
+            game.roll(5);
+            game.roll(1);
+            rollStrike();
+            game.roll(7);
+            game.roll(2);
+            rollStrike();
+            rollSpare();
+            game.roll(3);
+            game.roll(2);
+            game.roll(4);
+            game.roll(5);
+            rollSpare();
+            game.roll(8);
+
+            Assert.AreEqual(115, game.score());
+        }
     }
 }
